@@ -1,0 +1,73 @@
+#matrixarea {
+    margin: auto;
+    padding: 0px;
+    border: 3px;
+    border-style:solid;
+    /* min-width: 30%;
+    max-width:50%; */
+    width:50%;
+    padding: 20px;
+    height:70%;
+    overflow-y: scroll;
+    background-color: cyan;
+    font-size:1.2pc; 
+    float:left;
+}
+
+/* .matdiv{
+    border-top:1px;
+    border-top-style:solid;
+}  */
+/* .matdiv:nth-child(even){
+    background-color: lightgray;
+} */
+
+
+#wrapper {
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#matrixinput {
+    background-color:cyan;
+    border:3px;
+    border-style:solid;
+}
+input {
+    font-size:1pc;
+    width:3pc;
+    margin-left: 0px;
+}
+#list {
+    width:20pc;
+    background-color: #ffffdd;
+}
+
+body {
+    font-family: monospace;
+}
+
+#buttonarea {
+    width: 40%;
+    margin:3px;
+    font-family: monospace;
+    /* max-width: 400px; */
+    border: 3px;
+    border-style:solid;
+    float: left;
+}
+
+.row {
+    padding:10px;
+    font-size:1.2pc;
+}
+
+
+.row:nth-child(even){
+    background-color: lightgray;
+}
+
+.row:hover {
+   background-color: orange;
+}
+

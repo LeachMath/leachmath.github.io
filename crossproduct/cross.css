@@ -1,0 +1,59 @@
+#matrixarea {
+    margin: auto;
+    padding: 0px;
+    border: 3px;
+    border-style:solid;
+    /* min-width: 30%;
+    max-width:50%; */
+    width:50%;
+    padding: 20px;
+    height:70%;
+    overflow-y: scroll;
+    background-color: cyan;
+    font-size:1.2pc; 
+    float:left;
+}
+
+/* .matdiv{
+    border-top:1px;
+    border-top-style:solid;
+}  */
+/* .matdiv:nth-child(even){
+    background-color: lightgray;
+} */
+
+
+.vector {
+    font-size: x-large;
+    border:3px;
+    border-style:solid;
+}
+#result {
+    font-size: xx-large;
+    font-weight: bold;
+
+}
+
+#wrapper {
+    width:60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+#matrixinput {
+    background-color:darkorange;
+    border:3px;
+    border-style:solid;
+}
+input {
+    font-size:x-large;
+    width:3pc;
+    margin-left: 0px;
+    border:none;
+    text-align: center;
+    background-color: lightgray;
+}
+
+body {
+    background-color: lightgray;
+    font-family: monospace;
+}

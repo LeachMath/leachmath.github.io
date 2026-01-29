@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+  <title>Plot Sample</title>
+  <style>
+			body { margin: 20; }
+			canvas { width: 50%; height: 50% }
+		</style>
+</head>
+<body onload="drawAxes(); drawCurve('f'); drawCurve('g')">
+<div><canvas id="stage" width="500" height="500"></canvas><br>
+</div>
+
+
+<!-- <script type="text/javascript" src="https://www.westga.edu/~cleach/graphing/three.min.js"></script>
+<script language="Javascript" type="text/javascript" src="https://www.westga.edu/~cleach/graphing/math.min.js"></script> -->
+<script type="text/javascript" src="https://www.westga.edu/~cleach/graphing/three.min.js"></script>
+<script language="Javascript" type="text/javascript" src="https://www.westga.edu/~cleach/graphing/math.min.js"></script>
+
+<!-- <script language="Javascript" type="text/javascript" src="http://www.westga.edu/~cleach/graphing/math.min.js"></script> -->
+<script type="text/javascript" src="https://www.westga.edu/~cleach/graphing/TrackballControls.js"></script>
+<script type="text/javascript" src="https://www.westga.edu/~cleach/graphing/parametrictest.js"></script>
+
+
+<br>
+
+f(x) = <input type="TEXT"  id="ffunctionString" value = "4-x^2" size="20" onchange="drawCurve('f')">
+<button onclick="controls.reset()"> Reset view</button>
+<br>
+<br>
+g(x) = <input type="TEXT"  id="gfunctionString" value = "0" size="20" onchange="drawCurve('g')">
+
+<br>
+<br>
+Axis of rotation: <select id="orientation" onchange="drawRotAxis()">
+  <option value="y">y</option>
+  <option value="x">x</option>
+</select>
+ = <input type="TEXT" id="rotAxisValue" value =0 size="20" onchange="drawRotAxis()">
+<br>
+
+
+
+<br>
+a = <input type="TEXT" id="avalue" value="0"   size="10" onchange="drawVerticalLines()">
+b = <input type="TEXT" id="bvalue" value="2"  size="10" onchange="drawVerticalLines()">
+n = <input type="TEXT" id="nvalue" value="25"    size="10">
+<button onclick="rotateRegion()">Rotate</button>
+<button onclick="hideShells()">Hide</button>
+<button onclick="highlightRegion()">Shade Area</button>
+<button onclick="unHighlightRegion()">Unshade Area</button><br>
+
+
+<br>
+Opacity: <input type="range" min="1" max="10" value="2" class="slider" id="shellOpacitySlider" onchange="changeShellOpacity()">
+<br>
+Highlight: <input type="range" min="1" max="100" value="50" class="slider" id="myRange" onchange="highlightShell()">
+
+
+
+<font size=6><p id = "volumeOutput"> </p> </font>
+
+
+<h3> Window Settings </h3>
+  <table>
+      <tr>
+          <td></td>
+          <td>min</td>
+          <td>max</td>
+          <td>tick</td>
+      </tr>
+      <tr>
+          <td>x</td>
+          <td><input type="TEXT" id="x_min" value="-8" size="10"></td>
+          <td><input type="TEXT" id="x_max" value="8"  size="10"></td>
+          <td><input type="TEXT" id="x_tick" value="1"  size="10"></td>
+      </tr>
+      <tr>
+          <td>y</td>
+          <td><input type="TEXT" id="y_min" value="-4.5"  size="10"></td>
+          <td><input type="TEXT" id="y_max" value="4.5"  size="10"></td>
+          <td><input type="TEXT" id="y_tick" value="1"  size="10"></td>
+      </tr>
+      <tr>
+          <td>z</td>
+          <td><input type="TEXT" id="z_min" value="-4.5"  size="10"></td>
+          <td><input type="TEXT" id="z_max" value="4.5"  size="10"></td>
+          <td><input type="TEXT" id="z_tick" value="1"  size="10"></td>
+      </tr>
+  <tr><td></td><td>
+      <button onclick="drawAxes()">Update</button>
+  </td></tr>
+  </table>
+  <br><br>
+  NOTES:<br>
+  If the axis of rotation passes through the region, the volume will not be correct.<br>
+  The window settings are not currently operational.
+
+
+
+</body>
+</html>

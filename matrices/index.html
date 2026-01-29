@@ -1,0 +1,71 @@
+<html lang="en">
+<head>
+  <title>Matrix Workspace</title>
+</head>
+<body onload="initializepage()">
+  <div id="wrapper">
+    <div id="header">
+  <h1>Row Operations Calculator</h1>
+  This is for educational purposes only. Don't use this to build a bridge or life-support system.
+</div>
+  <pre>
+    <div id="matrixinput" style="display:block;">
+      Matrix size: <input type="number" id="numrows" min="1" max="10" value="3"> &times; <input type="number" id="numcols" min="1" max="10" value="4">
+
+      Enter the entries of your matrix separated by spaces. (e.g. 1 2 3 4 5 6 )
+      <input type="text" id="list" width="100" value=" 1 1 3 1 5 2  2 1  4 2 1 2">
+
+      <button id="readbutton" onclick="readinmatrix()">Enter</button> <button id="clear" onclick="cleararea()">Clear</button>
+    </div>
+  </pre>
+    <pre>
+    <div id="matrixarea">
+    </div> 
+  </pre>
+
+    <div id="buttonarea">
+      <div class="row">
+        Row Operations
+      </div>
+      <div class="row">
+        R <input type="number" id="swaprow1" min="1" max="99" value="1"> &harr; R <input type="number" id="swaprow2" min="1" max="99" value="2">
+        <button id="swapbutton" onclick="swaprows()">swap</button>
+      </div>
+
+      <div class="row">
+        R <input type="number" id="scalerow" min="1" max="99" value="1"> &times; <input type="text" id="k1" value="2">
+        <button id="scalebutton" onclick="scalerow()">multiply</button>
+      </div>
+      <div class="row">
+        R <input type="number" id="scalerow2" min="1" max="99" value="1"> &div; <input type="text" id="k2"  value="2">
+        <button id="scalebutton" onclick="dividerow()">divide</button>
+      </div>
+
+      <div class="row">
+        R  <input type="number" id="addrow1" min="1" max="99" value="1">  + <input type="text" id="k3"  value="2"> &times; R <input type="number" id="addrow2" min="1" max="99" value="2"> 
+        <button id="addmult" onclick="combinerows()">combine</button>
+      </div>
+
+      <div class="row">
+        R  <input type="number" id="subrow1" min="1" max="99" value="1">  - <input type="text" id="k4" min="1" max="99" value="2"> &times; R <input type="number" id="subrow2" min="1" max="99" value="1"> 
+        <button id="addmult" onclick="subtractrows()">combine</button>
+      </div>
+      <div class="row">
+
+        <button id="addmult" onclick="undolastrowop()">UNDO</button>
+      </div>
+    </div>
+    <button id="addmult" onclick="copytoclipboard()">Copy Work to Clipboard</button>
+      
+    
+  </div>
+
+
+
+
+  <link rel="stylesheet" href="rref.css">
+  <script type="text/javascript" src="rational.js"></script>
+  <script type="text/javascript" src="matrix.js"></script>
+  <script type="text/javascript" src="testcode.js"></script>
+
+</body>

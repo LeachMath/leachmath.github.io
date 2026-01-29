@@ -1,0 +1,204 @@
+<html>
+<head>
+  <title>Lights Out</title>
+</head>
+<body>
+<h1> Lights Out (Wraparound sides) </h1>
+
+  <script>
+  var numrows = 5;
+  var numcols = 5; // number of columns.
+  var numcolors = 2;
+// var colorlist=["00FF00", "0000FF", "FF4422", "007700", "009900", "00BB00", "00FF00",];
+//var colorlist=["000000", "0000FF", "FF4422", "007700", "009900", "00BB00", "00FF00",];
+var colorlist=["EEEEFF", "2222FF", "FF2222", "007700", "009900", "00BB00", "00FF00",];
+//var colorlist=["eeeeff", "2222FF", "FF2222", "007700", "009900", "00BB00", "00FF00",];
+  var board;
+
+
+   var controlsText = '<div id="controls">   <br>   <button onclick="scramble(numcolors*3)">Lightly Scramble</button>   <button onclick="scramble(0)">Really Scramble</button>   <button onclick="chaseDown()">ChaseDown</button> <hr><table><tr><td>Number of Rows:</td> <td><input type="TEXT" id="rowInput" value="0"  size="5"><br></td></tr>  <tr><td>Number of Columns:</td> <td><input type="TEXT" id="colInput" value="0"  size="5"><br></td></tr>  <tr><td>Number of Colors:</td> <td><input type="TEXT" id="colorInput" value="0"  size="5"><br></td></tr></table><button onclick="reset()">Reset</button></div>';
+
+
+
+
+
+
+  // //initialize the array
+  function initboard(){
+    board=new Array(numrows);
+    for (var i=0; i<numrows; i++){
+      board[i]= new Array(numcols);
+      for (var j=0; j<numcols; j++) board[i][j]=0;
+    }
+  }
+
+  function drawTable(){
+    var t = document.getElementById("myTable");
+    if (t!=null) t.parentElement.removeChild(t);
+    document.write("<table border = 1 id='myTable'>");
+    for (row=0; row<numrows; row++){
+      document.write("<tr height = 80 align=center>");
+      for (col=0; col<numcols; col++){
+        var coords=row*100+col;
+        document.write("<td id="+coords+" onclick='pressButton(id)'' width=80 bgcolor = ");
+        document.write(colorlist[0]);
+        document.write("></td>");
+      }
+      document.write("</tr>");
+    }
+    document.write("</table>");
+
+    var ct = document.getElementById("controls");
+    if (ct!=null) document.body.removeChild(document.getElementById("controls"))
+    window.document.body.insertAdjacentHTML('beforeend', controlsText);
+    document.getElementById("colInput").value = numcols;
+    document.getElementById("rowInput").value = numrows;
+    document.getElementById("colorInput").value = numcolors;
+
+
+
+  }
+
+  function reset(){
+    numcols=document.getElementById("colInput").value;;
+    numrows=document.getElementById("rowInput").value;;
+    numcolors=document.getElementById("colorInput").value;;
+    initboard();
+    drawTable();
+
+  }
+
+  function updateColoring(){
+    for (row=0; row<numrows; row++){
+      for (col=0; col<numcols; col++){
+        var square = document.getElementById("myTable").rows[row].cells[col]
+        square.style.backgroundColor=colorlist[board[row][col]];
+        if(board[row][col]!=0) square.innerHTML = "<font size=10>"+board[row][col]+"</font>";
+        if(board[row][col]==0) square.innerHTML = "";
+      }
+    }
+  }
+
+  function scramble(k){
+    if (k==0) k=numcols*numrows*numcolors;
+    for (var i=0; i<k; i++){
+      c = Math.floor(Math.random()*numcols);
+      r = Math.floor(Math.random()*numrows);
+      // console.log("row "+r+"  col"+c);
+
+      pressButton(r*100+c);
+    }
+    updateColoring();
+  }
+
+  function pressButton(d){
+    r = Math.floor(d/100);
+    c = d%100;
+    // console.log("row "+r+"  col"+c);
+    //cell
+    board[r][c]=(board[r][c]+1)%numcolors;
+    document.getElementById("myTable").rows[r].cells[c].style.backgroundColor=colorlist[board[r][c]];
+    // above
+    if(r>0){
+      board[r-1][c]=(board[r-1][c]+1)%numcolors;
+      document.getElementById("myTable").rows[r-1].cells[c].style.backgroundColor=colorlist[board[r-1][c]];
+    }
+
+    //below
+    if(r<numrows-1){
+      board[r+1][c]=(board[r+1][c]+1)%numcolors;
+      document.getElementById("myTable").rows[r+1].cells[c].style.backgroundColor=colorlist[board[r+1][c]];
+    }
+
+    //left
+    if(c>0){
+      board[r][c-1]=(board[r][c-1]+1)%numcolors;
+      document.getElementById("myTable").rows[r].cells[c-1].style.backgroundColor=colorlist[board[r][c-1]];
+    }
+    if(c==0){
+      board[r][numcols-1]=(board[r][numcols-1]+1)%numcolors;
+      document.getElementById("myTable").rows[r].cells[numcols-1].style.backgroundColor=colorlist[board[r][numcols-1]];
+    }
+
+    //right
+
+    if(c<numcols-1){
+      board[r][c+1]=(board[r][c+1]+1)%numcolors;
+      document.getElementById("myTable").rows[r].cells[c+1].style.backgroundColor=colorlist[board[r][c+1]];
+    }
+    if(c==numcols-1){
+      board[r][0]=(board[r][0]+1)%numcolors;
+      document.getElementById("myTable").rows[r].cells[0].style.backgroundColor=colorlist[board[r][0]];
+    }
+    //    document.getElementById("myTable").rows[r].cells[c].style.backgroundColor=colorlist[board[c][r]];
+
+
+
+    //    console.log(board);
+    updateColoring();
+    checkifwin();
+
+  }
+
+  function checkifwin(){
+    var flag = 0;
+    for (var r=0; r<numrows; r++){
+      for(var c=0; c<numcols; c++){
+        flag +=board[r][c];
+      }
+    }
+    if (flag==0) alert("You Won.");
+  }
+
+
+
+
+  function chaseDown(){
+    for (var r1 = 1 ; r1<numrows; r1++){
+      for (var c1 = 0; c1<numcols; c1++){
+      while(board[r1-1][c1]!=0) {
+        pressButton(r1*100+c1);
+      }
+     }
+    }
+  }
+
+  function chaseRight(){
+    for (var c1 = 1; c1<numcols; c1++){
+      for (var r1 = 0 ; r1<numrows; r1++){
+       while(board[r1][c1-1]!=0) {
+       pressButton(r1*100+c1);
+      }
+     }
+    }
+  }
+
+  initboard();
+  drawTable();
+  updateColoring();
+
+
+
+</script>
+<!-- Default Statcounter code for Lights Out
+https://www.westga.edu/~cleach/lightsOut.html -->
+<script type="text/javascript">
+var sc_project=12045280;
+var sc_invisible=0;
+var sc_security="b22f06ab";
+var scJsHost = "https://";
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="Web Analytics
+Made Easy - StatCounter" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/12045280/0/b22f06ab/0/"
+alt="Web Analytics Made Easy -
+StatCounter"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+
+</body>
+</html>

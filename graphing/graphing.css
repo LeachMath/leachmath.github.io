@@ -1,0 +1,75 @@
+body {
+    background: #000088;
+}
+
+#canvas {
+    padding: 0px;
+    background: #FFFFFF;
+    border: thin inset #000000;
+    width: 640px;
+    height: 360px;
+}
+
+
+.shortcolumn {
+    color: #FF0000;
+    float: left;
+    width: 300px;
+    font-size: 25px;
+    overflow: hidden;
+}
+
+.column {
+    float: left;
+    width: 330px;
+}
+
+#areaOutput {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size:25px; 
+    margin-left:0px;
+    margin-top: 10px; 
+    margin-bottom: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px;
+    padding-left: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h3 { text-align: left;
+    margin: 10px;
+    font-family: Arial, Helvetica, sans-serif;}
+
+#zoomBox {
+    background-color: #000088;
+}
+
+#functionDiv {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.row {
+    padding-left:20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#wrapper {
+    background-color: #c0c0cc;
+width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+}
