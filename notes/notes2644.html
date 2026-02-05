@@ -171,24 +171,56 @@ function isMobile() {
 function openFile(path) {
   const cdnURL = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${path}`;
   const frame = document.getElementById("viewerFrame");
-
   const lower = path.toLowerCase();
 
-  // PDFs behave poorly in mobile iframes
-  if (lower.endsWith(".pdf") && isMobile()) {
-    window.open(cdnURL, "_blank");
+  // --- PDFs: force real new-tab navigation on mobile ---
+  if (lower.endsWith(".pdf") && window.innerWidth < 700) {
+    const a = document.createElement("a");
+    a.href = cdnURL;
+    a.target = "_blank";
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
     return;
   }
 
-  // Images display better with <img>
+  // Images render nicer inline
   if (lower.match(/\.(png|jpg|jpeg|gif|webp)$/)) {
     frame.srcdoc = `<img src="${cdnURL}" style="max-width:100%">`;
     return;
   }
 
-  // Default behavior
+  // Everything else inline
   frame.src = cdnURL;
 }
+
+
+
+
+
+
+// function openFile(path) {
+//   const cdnURL = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${path}`;
+//   const frame = document.getElementById("viewerFrame");
+
+//   const lower = path.toLowerCase();
+
+//   // PDFs behave poorly in mobile iframes
+//   if (lower.endsWith(".pdf") && isMobile()) {
+//     window.open(cdnURL, "_blank");
+//     return;
+//   }
+
+//   // Images display better with <img>
+//   if (lower.match(/\.(png|jpg|jpeg|gif|webp)$/)) {
+//     frame.srcdoc = `<img src="${cdnURL}" style="max-width:100%">`;
+//     return;
+//   }
+
+//   // Default behavior
+//   frame.src = cdnURL;
+// }
 
 
 
