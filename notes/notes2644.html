@@ -17,7 +17,7 @@ body {
 
 /* Desktop layout */
 #sidebar {
-  width: 300px;
+  width: 200px;
   border-right: 1px solid #ccc;
   overflow-y: auto;
   padding: 15px;
@@ -162,11 +162,42 @@ function renderList(items, path) {
   });
 }
 
+
+function isMobile() {
+  return window.innerWidth < 700;
+}
+
 function openFile(path) {
-  const frame = document.getElementById("viewerFrame");
   const cdnURL = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${path}`;
+  const frame = document.getElementById("viewerFrame");
+
+  const lower = path.toLowerCase();
+
+  // PDFs behave poorly in mobile iframes
+  if (lower.endsWith(".pdf") && isMobile()) {
+    window.open(cdnURL, "_blank");
+    return;
+  }
+
+  // Images display better with <img>
+  if (lower.match(/\.(png|jpg|jpeg|gif|webp)$/)) {
+    frame.srcdoc = `<img src="${cdnURL}" style="max-width:100%">`;
+    return;
+  }
+
+  // Default behavior
   frame.src = cdnURL;
 }
+
+
+
+
+
+// function openFile(path) {
+//   const frame = document.getElementById("viewerFrame");
+//   const cdnURL = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${path}`;
+//   frame.src = cdnURL;
+// }
 
 
 
