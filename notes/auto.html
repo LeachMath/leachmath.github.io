@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CalcII Repository Browser</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+#container {
+  display: flex;
+  height: 100vh;
+}
+
+#sidebar {
+  width: 300px;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+  padding: 15px;
+  background: #f7f7f7;
+}
+
+#viewer {
+  flex: 1;
+  height: 100%;
+}
+
+#viewerFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.file {
+  cursor: pointer;
+  margin: 6px 0;
+}
+
+.file:hover {
+  text-decoration: underline;
+}
+
+.dir {
+  font-weight: bold;
+}
+
+#breadcrumb {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="container">
+
+  <div id="sidebar">
+    <h2>CalcII Files</h2>
+    <div id="breadcrumb"></div>
+    <div id="fileList">Loading...</div>
+  </div>
+
+  <div id="viewer">
+    <iframe id="viewerFrame"></iframe>
+  </div>
+
+</div>
+
+<script>
+const owner = "LeachMath";
+const repo = "CalcII";
+const branch = "main";
+
+const apiBase = `https://api.github.com/repos/${owner}/${repo}/contents`;
+const rawBase = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}`;
+
+async function loadPath(path = "") {
+  const url = apiBase + (path ? "/" + path : "");
+  const res = await fetch(url);
+  const data = await res.json();
+
+  renderBreadcrumb(path);
+  renderList(data, path);
+}
+
+function renderBreadcrumb(path) {
+  const bc = document.getElementById("breadcrumb");
+  bc.innerHTML = "";
+
+  const root = document.createElement("span");
+  root.textContent = "root";
+  root.className = "file";
+  root.onclick = () => loadPath("");
+  bc.appendChild(root);
+
+  if (!path) return;
+
+  const parts = path.split("/");
+  let running = "";
+
+  parts.forEach(part => {
+    bc.appendChild(document.createTextNode(" / "));
+    running += (running ? "/" : "") + part;
+
+    const span = document.createElement("span");
+    span.textContent = part;
+    span.className = "file";
+    span.onclick = () => loadPath(running);
+    bc.appendChild(span);
+  });
+}
+
+function renderList(items, path) {
+  const list = document.getElementById("fileList");
+  list.innerHTML = "";
+
+  // Sort: dirs first
+  items.sort((a,b) => (a.type === "dir" ? -1 : 1));
+
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "file";
+
+    if (item.type === "dir") {
+      div.textContent = "📁 " + item.name;
+      div.classList.add("dir");
+      div.onclick = () => loadPath(item.path);
+    } else {
+      div.textContent = "📄 " + item.name;
+      div.onclick = () => openFile(item.path);
+    }
+
+    list.appendChild(div);
+  });
+}
+
+function openFile(path) {
+  const frame = document.getElementById("viewerFrame");
+  const cdnURL = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${path}`;
+  frame.src = cdnURL;
+}
+
+
+
+// function openFile(path) {
+//   const frame = document.getElementById("viewerFrame");
+//   const rawURL = rawBase + "/" + path;
+
+//   // Try to display directly
+//   frame.src = rawURL;
+// }
+
+// initial load
+loadPath();
+</script>
+
+</body>
+</html>
