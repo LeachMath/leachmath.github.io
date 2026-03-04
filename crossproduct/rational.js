@@ -53,7 +53,7 @@ class Rational {
 }
 
 function clone(input){
-    console.log("clone");
+//    console.log("clone");
     let n = new Rational(input.num, input.den);
     return n;
 }
@@ -61,13 +61,13 @@ function clone(input){
 function stringToRational(input){
     let pattern = /^-?\d+$/;
     if (pattern.test(input)){
-        console.log("valid integer")
+  //      console.log("valid integer")
         let result = new Rational(parseInt(input),1);
         return result;
     } 
     pattern = /^-?\d+\/-?\d+$/
     if (pattern.test(input)){
-        console.log("valid fraction");
+    //    console.log("valid fraction");
         let a=input.split("/");
         if (a[0]<0 && a[1]<0){
             a[0]=-a[0];

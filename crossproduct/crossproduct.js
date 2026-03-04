@@ -1,14 +1,3 @@
-function initializepage(){
-window.addEventListener('keydown', function(evt) {
-    evt.stopImmediatePropagation();
-    console.log(evt.key);
-    if ((evt.key === 'Z' || evt.key ==='z') && (evt.ctrlKey || evt.metaKey)) {
-        undolastrowop();
-    }
-});
-}
-
-
 function computeCrossProduct(){
 document.getElementById("result").innerHTML="";
 var ax = stringToRational(document.getElementById("Ax").value);
