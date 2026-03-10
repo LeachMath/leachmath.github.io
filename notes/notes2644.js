@@ -77,15 +77,13 @@ function openFile(path) {
   const lower = path.toLowerCase();
 
   // ---- PDF.js viewer (best mobile behavior) ----
-  if (lower.endsWith(".pdf")) {
+ if (lower.endsWith(".pdf")) {
 
-  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-
-  if (isMobile) {
-    window.open(url, "_blank");   // mobile: open native viewer
+  if (window.innerWidth < 900) {
+    window.open(url, "_blank");
   } else {
     const viewer = "https://mozilla.github.io/pdf.js/web/viewer.html?file=";
-    frame.src = viewer + encodeURIComponent(url);  // desktop
+    frame.src = viewer + encodeURIComponent(url);
   }
 
   return;
