@@ -79,8 +79,10 @@ function openFile(path) {
   // ---- PDF.js viewer (best mobile behavior) ----
  if (lower.endsWith(".pdf")) {
 
-  if (window.innerWidth < 900) {
-    window.open(url, "_blank");
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  if (isIOS) {
+    window.location.href = url;   // iOS Safari reliable method
   } else {
     const viewer = "https://mozilla.github.io/pdf.js/web/viewer.html?file=";
     frame.src = viewer + encodeURIComponent(url);
