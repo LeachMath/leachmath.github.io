@@ -78,10 +78,18 @@ function openFile(path) {
 
   // ---- PDF.js viewer (best mobile behavior) ----
   if (lower.endsWith(".pdf")) {
+
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    window.open(url, "_blank");   // mobile: open native viewer
+  } else {
     const viewer = "https://mozilla.github.io/pdf.js/web/viewer.html?file=";
-    frame.src = viewer + encodeURIComponent(url);
-    return;
+    frame.src = viewer + encodeURIComponent(url);  // desktop
   }
+
+  return;
+}
 
   // ---- Images ----
   if (lower.match(/\.(png|jpg|jpeg|gif|webp|svg)$/)) {
